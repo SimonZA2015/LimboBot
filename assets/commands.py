@@ -33,8 +33,7 @@ class commands():
         def login_messagee(message):
             markup = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
             btn3 = types.KeyboardButton('👈 Назад')
-            btn4 = types.KeyboardButton('🔑 Войти')
             tools.setValue(message.chat.id, 'step', 'login')
-            markup.add(btn3, btn4)
-            bot.send_message(message.chat.id, 'Ого! тф хочешь войти в админ панель? Веди через пробел логин м пароль',
+            markup.add(btn3)
+            bot.send_message(message.chat.id, 'Ого! Ты хочешь войти в админ панель? Веди через пробел логин м пароль',
                              reply_markup=markup)

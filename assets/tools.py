@@ -1,4 +1,7 @@
 import json
+import re
+import urllib
+
 from assets import tokens
 
 
@@ -118,6 +121,66 @@ class tools():
         except Exception as e:
             print('BOT> error in tool.py{setValue}: ', e)
             return False
+
+    def loginBase(command, username, password):
+        try:
+            import pymysql
+            dbNAme = tokens.dbBase
+            userDb = username.split('@', 1)[0]
+            con = pymysql.connect(
+                host="denishik.ru",
+                user=dbNAme.split('_', 1)[0] + '_' + userDb,
+                password=password,
+                db=dbNAme
+            )
+            select_users = command
+            cursor = con.cursor()
+            cursor.execute(select_users)
+            return cursor.fetchall()
+        except Exception as e:
+            print('BOT> error in tool.py{loginBase}: ', e)
+
+    def updateIpBase(username, password, ip, id):
+        import pymysql
+        dbNAme = tokens.dbBase
+        userDb = username.split('@', 1)[0]
+        con = pymysql.connect(
+            host="denishik.ru",
+            user=dbNAme.split('_', 1)[0] + '_' + userDb,
+            password=password,
+            db=dbNAme,
+            autocommit =True
+        )
+        select_users = "UPDATE `users` SET `ips` = ('%s') WHERE `users`.`id` = ('%s')"
+        print(select_users)
+        cursor = con.cursor()
+        cursor.execute(select_users % (ip + ',', id))
+        return cursor.fetchall()
+
+    def get_ip(self):
+        import socket
+        h_name = socket.gethostname()
+        IP_addres = socket.gethostbyname(h_name)
+        print("Host Name is:" + h_name)
+        print("Computer IP Address is:" + IP_addres)
+        return IP_addres
+
+    def clear_ips(username, password, id):
+        import pymysql
+        dbNAme = tokens.dbBase
+        userDb = username.split('@', 1)[0]
+        con = pymysql.connect(
+            host="denishik.ru",
+            user=dbNAme.split('_', 1)[0] + '_' + userDb,
+            password=password,
+            db=dbNAme,
+            autocommit=True
+        )
+        select_users = "UPDATE `users` SET `ips` = (' ') WHERE `users`.`id` = ('%s')"
+        print(select_users)
+        cursor = con.cursor()
+        cursor.execute(select_users % (id))
+        return cursor.fetchall()
 
     def getValue(idTelegram, key):
         try:

@@ -9,9 +9,10 @@ def close():
     print('a' + s)
 bot = telebot.TeleBot(tokens.tokenTelegram)
 try:
-    commands(bot, close)
-    text(bot)
-    photo(bot)
+    error = False
+    commands(bot, close, error)
+    text(bot, error)
+    photo(bot, error)
 
 except Exception as e:
     print('BOT> Произошла ошибка: ', e)

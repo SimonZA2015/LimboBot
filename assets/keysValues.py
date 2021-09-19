@@ -5,6 +5,22 @@ from assets import tokens
 
 
 class buttonsKey():
+    def addIpView(idTelegram):
+        markupLogin = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
+        merop = types.KeyboardButton('👈 Назад')
+        info = types.KeyboardButton('Your ipv6')
+        markupLogin.add(merop, info)
+        return markupLogin
+
+    def lognView(idTelegram):
+        markupLogin = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
+        addIp = types.KeyboardButton('Add ip')
+        delIps = types.KeyboardButton('Clear ips')
+        services = types.KeyboardButton('Services')
+        signout = types.KeyboardButton('Sign Out')
+        markupLogin.add(addIp, delIps, services, signout)
+        return markupLogin
+
     def adminView(idTelegram):
         markupHome = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
         merop = types.KeyboardButton('Через тебя')

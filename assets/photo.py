@@ -62,6 +62,10 @@ class photo():
                 if c.data == 'error_more':
                     bot.send_message(c.message.chat.id, self.error)
 
+
         except Exception as e:
             self.error = e
             print('BOT> Error in phtot.py{lisener}: ', e)
+
+    def setError(self, error):
+        self.error = error
